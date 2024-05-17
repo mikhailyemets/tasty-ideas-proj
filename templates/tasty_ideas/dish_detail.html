@@ -1,13 +1,12 @@
 {% extends '_base.html' %}
 
 {% block content %}
-  <div class="container" style="background-color: black; color:white;">
+  <div class="container dish-detail" >
       <h2 class="text-center mb-4">{{ dish.name }}</h2>
       <div class="row justify-content-center">
           <div class="col mb-4">
-              <h3>Price: {{ dish.price }}</h3>
+              <h3>Cost of making : {{ dish.price }} USD</h3>
               <p>Cooking Time: {{ dish.cooking_time }} minutes</p>
-              <p>Spicy Level: {{ dish.spicy }}</p>
               <p>Difficulty: {{ dish.difficulty }}</p>
               <h4>Ingredients:</h4>
               <ul>
@@ -16,9 +15,36 @@
                   {% endfor %}
               </ul>
               <h4>Recipe:</h4>
-              <p>{{ dish.recipe }}</p>
+              <p class="recipe_cont">{{ dish.recipe }}</p>
           </div>
       </div>
-      <a href="{% url 'tasty_ideas:index' %}" class="btn btn-primary">Back to dishes list</a>
+      <div class="comments">
+        <h2 style="color: black; font-size: 15px; letter-spacing: 1px">Reviews</h2>
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="comment">
+                    <p><strong>By: {{ review.left_by.username }}</strong></p>
+                    <p>{{ review.content }}</p>
+                    <p>Commented at: {{ review.created_at }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No comments yet.</p>
+        {% endif %}
+        {% if user.is_authenticated %}
+          <div class="add-comment">
+            <h2 style="color: white; font-size: 15px; letter-spacing: 1px; margin-top: 40px">Add a New Comment</h2>
+            <form method="post">
+              {% csrf_token %}
+              {{ form.content }}
+              <br>
+              <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+          </div>
+        {% else %}
+          <p>Please <a href="{% url 'login' %}">log in</a> to add a comment.</p>
+        {% endif %}
+    </div>
+      <a href="javascript:history.back()" class="btn dishes-back">Back to dishes list</a>
   </div>
 {% endblock %}

@@ -8,7 +8,12 @@
     {% endif %}
     <form action="{% url 'login' %}" method="post">
       {% csrf_token %}
-      {{ form|crispy }}
+      <div class="form-group">
+        {{ form.username|as_crispy_field }}
+      </div>
+      <div class="form-group">
+        {{ form.password|as_crispy_field }}
+      </div>
       <div class="text-center">
         <input type="submit" value="Submit" class="btn btn-primary">
       </div>

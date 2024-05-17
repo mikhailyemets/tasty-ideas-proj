@@ -80,3 +80,35 @@ header{
 .cards-block{
     margin-top: 20px;
 }
+.dish-detail{
+    background-color: black;
+    color: white;
+    padding: 40px;
+    border-radius: 50px;
+}
+.mb-4 h4{
+    letter-spacing: 1.5px;
+}
+.recipe_cont{
+    letter-spacing: 1.5px;
+}
+.comment{
+    border: 2px solid white;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 10px
+}
+.dishes-back {
+    border: 1px solid white;
+    color: white;
+    transition: transform 0.3s ease;
+    float: right;
+    margin-left: 10px;
+}
+
+.dishes-back:hover {
+    transform: scale(1.1);
+    color: black;
+    background-color: white;
+
+}

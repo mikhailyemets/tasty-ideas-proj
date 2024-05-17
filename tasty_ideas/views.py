@@ -1,16 +1,16 @@
-from django.db.models import Count
+from django.contrib import messages
+from django import forms
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 
 from .forms import DishSearchForm
-from .models import Category, Dish
+from .models import Category, Dish, Review
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    categories = Category.objects.annotate(dish_count=Count('dishes')).order_by(
-        'dish_type'
-    )
+    categories = Category.objects.all()
+
     context = {
         'categories': categories
     }
@@ -36,7 +36,35 @@ class DishListView(generic.ListView):
         return context
 
 
+class CommentaryForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea)
+
+
 class DishDetailView(generic.DetailView):
     model = Dish
     template_name = 'tasty_ideas/dish_detail.html'
     context_object_name = 'dish'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentaryForm()
+        context['reviews'] = self.object.reviews.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if request.user.is_authenticated:
+            form = CommentaryForm(request.POST)
+            if form.is_valid():
+                content = form.cleaned_data['content']
+                new_review = Review.objects.create(
+                    left_by=request.user,
+                    dish=self.object,
+                    content=content
+                )
+                return redirect('tasty_ideas:dish-detail', pk=self.object.pk)
+            else:
+                messages.error(request, "Please provide a valid review.")
+        else:
+            messages.error(request, "Please log in before adding reviews.")
+        return redirect('tasty_ideas:dish-detail', pk=self.object.pk)
