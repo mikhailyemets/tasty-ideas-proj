@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="form-container">
+    <h1 class="text-center">Login</h1>
+    {% if form.errors %}
+      <p class="text-center" style="color:red">Invalid credentials</p>
+    {% endif %}
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="text-center">
+        <input type="submit" value="Submit" class="btn btn-primary">
+      </div>
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+  </div>
+{% endblock %}

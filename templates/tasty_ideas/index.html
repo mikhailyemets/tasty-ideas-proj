@@ -1,0 +1,56 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block nav %}
+  {% include "includes/nav_top.html" %}
+{% endblock %}
+{% block content %}
+<div class="content-background">
+  <header class="header-dark bg-dark">
+      <div class="container justify-content-between align-items-center d-flex">
+          <div>
+              <h1 class="display-4">Welcome to Tasty Ideas</h1>
+              <p class="lead ml-3 mt-3">Discover delicious recipes for your perfect evening</p>
+                <div class="container">
+                  <form class="form-inline mt-5">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+                </div>
+          </div>
+          {% if user.is_authenticated %}
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Log out</button>
+          </form>
+          {% else %}
+            <a href="{% url 'login' %}" class="login btn btn-outline-info my-2 my-sm-0 btn-lg">Login</a>
+          {% endif %}
+      </div>
+  </header>
+  <main class="container">
+        <section class="index-content">
+            <h2 class="text-center mb-4" style="color:white;">Categories</h2>
+            <div class="row justify-content-center">
+                {% for category in categories %}
+                <div class="category col mb-4">
+                    <a href="{% url 'tasty_ideas:dish-list' category.pk %}">
+                        <div class="category-image">
+                            <img src="{{ category.image }}" alt="{{ category.dish_type }}" class="img-fluid mb-2">
+                        </div>
+                    </a>
+                    <h3 class="text-center" style="color:white;">{{ category.dish_type }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</div>
+
+{#<footer class="bg-light py-3">#}
+{#    <!-- Здесь можно разместить дополнительную информацию или ссылки -->#}
+{#</footer>#}
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

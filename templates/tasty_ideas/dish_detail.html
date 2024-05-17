@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+
+{% block content %}
+  <div class="container" style="background-color: black; color:white;">
+      <h2 class="text-center mb-4">{{ dish.name }}</h2>
+      <div class="row justify-content-center">
+          <div class="col mb-4">
+              <h3>Price: {{ dish.price }}</h3>
+              <p>Cooking Time: {{ dish.cooking_time }} minutes</p>
+              <p>Spicy Level: {{ dish.spicy }}</p>
+              <p>Difficulty: {{ dish.difficulty }}</p>
+              <h4>Ingredients:</h4>
+              <ul>
+                  {% for ingredient in dish.ingredients.all %}
+                  <li>{{ ingredient.name }}</li>
+                  {% endfor %}
+              </ul>
+              <h4>Recipe:</h4>
+              <p>{{ dish.recipe }}</p>
+          </div>
+      </div>
+      <a href="{% url 'tasty_ideas:index' %}" class="btn btn-primary">Back to dishes list</a>
+  </div>
+{% endblock %}
