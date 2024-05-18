@@ -14,10 +14,10 @@
       <div class="form-group">
         {{ form.password|as_crispy_field }}
       </div>
+      <input type="hidden" name="next" value="{{ next }}">
       <div class="text-center">
         <input type="submit" value="Submit" class="btn btn-primary">
       </div>
-      <input type="hidden" name="next" value="{{ next }}">
     </form>
   </div>
 {% endblock %}

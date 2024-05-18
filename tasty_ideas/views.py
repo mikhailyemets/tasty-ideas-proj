@@ -49,6 +49,8 @@ class DishDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = CommentaryForm()
         context['reviews'] = self.object.reviews.all()
+        context['category_id'] = self.object.category.id
+        context['next'] = self.request.path
         return context
 
     def post(self, request, *args, **kwargs):
