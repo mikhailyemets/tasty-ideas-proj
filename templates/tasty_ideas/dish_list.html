@@ -4,31 +4,33 @@
 {% block content %}
 <div class="container">
     <h2 class="text-center mb-4 dish-title bg-dark mx-auto mb-5">R E C I P E S</h2>
-  <form method="get" action="" class="form-inline" style="margin-bottom: 10px;">
+  <form method="get" action="" class="form-inline" style="margin-bottom: 10px; width: 100%">
     {{ search_form|crispy }}
-    <input type="Submit" value="🔍" class="btn btn-secondary" style="margin-left:10px; margin-top: -15px; background-color:white;">
-    <a href="{% url 'tasty_ideas:dish-create' pk=category_pk%}" class="btn add-recipe"> Add your own recipe</a>
+    <input type="Submit" value="🔍" class="btn btn-secondary" style="margin-left:10px; margin-top: -15px; margin-right: 430px; background-color:white;">
+    <a href="{% url 'tasty_ideas:dish-create' pk=category_pk%}" class="btn btn-primary mr-2 bg-dark" style=" margin-top: -15px; border:1px solid black;"> Add your own recipe</a>
+    <a href="{% url 'tasty_ideas:index' %}" class="btn btn-primary bg-dark" style=" margin-top: -15px; border:1px solid black;"> Back to categories</a>
   </form>
+
     <div class="row mb-2 cards-block">
       {% for dish in dishes %}
         <div class="col-md-12">
           <div class="card flex-md-row mb-4 box-shadow h-md-250">
             <div class="card-body d-flex flex-column align-items-start">
-              <strong class="d-inline-block mb-2 text-primary">Difficulty: {{ dish.difficulty }}
-              </strong>
-              <h3 class="mb-0">
-                <a class="text-dark" href="#">{{ dish.name }}</a>
-              </h3>
-              <hr>
-{#              <div class="mb-1 text-muted">Price: {{ dish.price }}</div>#}
-              <p class="card-text mb-auto">Cooking time: {{ dish.cooking_time }} minutes</p>
-              <hr>
-              <h4>Ingredients:</h4>
-              <ul>
-                {% for ingredient in dish.ingredients.all %}
-                <li>{{ ingredient.name }}</li>
-                {% endfor %}
-              </ul>
+              <div class="card-content">
+                <strong class="d-inline-block mb-2 text-primary">Difficulty: {{ dish.difficulty }}</strong>
+                <h3 class="mb-0">
+                  <a class="text-dark" href="#">{{ dish.name }}</a>
+                </h3>
+                <hr>
+                <p class="card-text mb-auto">Cooking time: {{ dish.cooking_time }} minutes</p>
+                <hr>
+                <h4>Ingredients:</h4>
+                <ul>
+                  {% for ingredient in dish.ingredients.all %}
+                  <li>{{ ingredient.name }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
               <h4>Recipe:</h4>
               <p style="width: 400px">{{ dish.recipe|truncatechars:250 }}</p>
               <a href="{% url 'tasty_ideas:dish-detail' dish.pk %}">Continue reading</a>
@@ -38,6 +40,9 @@
         </div>
         {% endfor %}
       </div>
-  <a href="{% url 'tasty_ideas:index' %}" class="btn btn-primary float-right bg-dark own-btn btn-lg"> Back to categories</a>
+
 </div>
+{% endblock %}
+{% block pagination %}
+  {% include "includes/pagination.html" %}
 {% endblock %}

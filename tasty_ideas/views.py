@@ -24,7 +24,7 @@ class DishListView(generic.ListView):
     model = Dish
     template_name = 'tasty_ideas/dish_list.html'
     context_object_name = 'dishes'
-
+    paginate_by = 2
     def get_queryset(self):
         query = self.request.GET.get("query")
 

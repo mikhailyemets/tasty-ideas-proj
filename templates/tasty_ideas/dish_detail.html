@@ -6,8 +6,9 @@
         <div class="butns mb-4">
           <a href="{% url 'tasty_ideas:dish-update' pk=dish.id%}" class="btn btn-style mr-2">Edit recipe</a>
           <a href="{% url 'tasty_ideas:dish-delete' pk=dish.id%}" class="btn btn-style">Delete recipe</a>
+          <a href="{% url 'tasty_ideas:dish-list' pk=category_id %}" class="btn dishes-back ml-10">Back to recipes list</a>
         </div>
-  
+
       <div class="row justify-content-center">
           <div class="col mb-4">
               <h3>Cost of making : {{ dish.price }} USD</h3>
@@ -50,6 +51,6 @@
             <p>No comments yet.</p>
         {% endif %}
     </div>
-      <a href="{% url 'tasty_ideas:dish-list' pk=category_id %}" class="btn dishes-back">Back to recipes list</a>
+
   </div>
 {% endblock %}
