@@ -3,6 +3,8 @@
 {% block content %}
   <div class="container dish-detail" >
       <h2 class="text-center mb-4">{{ dish.name }}</h2>
+        <a href="{% url 'tasty_ideas:dish-update' pk=dish.id%}">Edit recipe</a>
+        <a href="{% url 'tasty_ideas:dish-delete' pk=dish.id%}">Delete recipe</a>
       <div class="row justify-content-center">
           <div class="col mb-4">
               <h3>Cost of making : {{ dish.price }} USD</h3>
@@ -20,7 +22,7 @@
       </div>
       <div class="comments">
         <h2 style="color: black; font-size: 15px; letter-spacing: 1px">Reviews</h2>
-{#        {% if user.is_authenticated %}#}
+        {% if user.is_authenticated %}
           <div class="add-comment">
             <h2 style="color: white; font-size: 15px; letter-spacing: 1px; margin-top: 40px">Add a New Comment</h2>
             <form method="post">
@@ -30,9 +32,9 @@
               <button type="submit" class="btn btn-primary btn-style">Add</button>
             </form>
           </div>
-{#        {% else %}#}
-{#          <p>Please <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-style">log in</a> to add a comment.</p>#}
-{#        {% endif %}#}
+        {% else %}
+          <p>Please <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-style">log in</a> to add a comment.</p>
+        {% endif %}
         {% if reviews %}
             {% for review in reviews %}
                 <div class="comment">

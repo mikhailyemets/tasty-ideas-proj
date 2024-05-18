@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 from .forms import DishSearchForm, CookCreateForm
@@ -39,8 +40,9 @@ class DishListView(generic.ListView):
         return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(DishListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["search_form"] = DishSearchForm()
+        context["category_pk"] = self.kwargs['pk']
         return context
 
 
@@ -84,3 +86,47 @@ class SignUpView(generic.CreateView):
     form_class = CookCreateForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
+
+
+class DishCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Dish
+    fields = "__all__"
+    template_name = "tasty_ideas/dish_list_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy("tasty_ideas:dish-list",
+                            kwargs={"pk": self.object.category.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_update_view'] = False
+        context['category_pk'] = self.kwargs['pk']
+        return context
+
+
+class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Dish
+    fields = "__all__"
+    template_name = "tasty_ideas/dish_list_form.html"
+
+    def get_success_url(self):
+        return reverse("tasty_ideas:dish-detail", kwargs={"pk": self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_update_view'] = True
+        context['category_pk'] = self.kwargs.get('pk', None)
+        return context
+
+
+class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Dish
+    template_name = "tasty_ideas/dish_confirm_delete.html"
+
+    def get_success_url(self):
+        return reverse_lazy("tasty_ideas:dish-list",
+                            kwargs={"pk": self.object.category.pk})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_pk'] = self.kwargs.get('pk', None)
+        return context

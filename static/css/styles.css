@@ -56,7 +56,7 @@ header{
 .dish-title{
     color:white;
     font-size: 45px;
-    width: 25%;
+    width: 500px;
     padding: 10px;
     border-radius: 20px;
 }
@@ -104,12 +104,12 @@ header{
     border: 1px solid white;
     color: white;
     transition: transform 0.3s ease;
-    background-color: black;
+    background-color: black !important;
 }
 .btn-style:hover{
     transform: scale(1.1);
     color: black;
-    background-color: white;
+    background-color: white !important;
     border: 1px solid white;
 }
 .dishes-back {
@@ -137,5 +137,16 @@ header{
     float: right;
 }
 .login{
+    margin-right: 10px;
+}
+.dish-add{
+    margin: 0 auto;
+    width: 60%;
+    background-color: black;
+    color: white;
+    padding: 20px;
+}
+.dish-add input{
+    background-color: lightslategrey;
     margin-right: 10px;
 }
