@@ -2,9 +2,8 @@ from django.contrib import messages
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
-from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render,redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
@@ -126,6 +125,7 @@ class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
     def get_success_url(self):
         return reverse_lazy("tasty_ideas:dish-list",
                             kwargs={"pk": self.object.category.pk})
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category_pk'] = self.kwargs.get('pk', None)

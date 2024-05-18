@@ -23,8 +23,8 @@ header{
     margin: 0 auto;
 }
 .dish-image{
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -149,4 +149,19 @@ header{
 .dish-add input{
     background-color: lightslategrey;
     margin-right: 10px;
+}
+.add-recipe{
+    background-color: white;
+    color: black;
+    padding: 8px;
+    border-radius: 10px;
+    border:1px solid black;
+    margin-top: -15px;
+    margin-left:50px;
+    font-size: 15px;
+}
+.add-recipe:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
 }

@@ -7,7 +7,7 @@
       {% csrf_token %}
       {{ form|crispy }}
       <input type="hidden" name="category_pk" value="{{ category.pk }}">
-      <input type="submit" value="save" class="btn btn-style">
+      <input type="submit" value="Save" class="btn btn-style">
       {% if is_update_view %}
         <a href="{% url 'tasty_ideas:dish-detail' pk=object.pk %}" class="btn btn-style">Cancel</a>
       {% else %}
