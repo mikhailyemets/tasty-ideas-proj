@@ -130,3 +130,12 @@ header{
         height: 150px;
         resize: none;
 }
+.signup{
+    width: 50%;
+}
+.auth{
+    float: right;
+}
+.login{
+    margin-right: 10px;
+}

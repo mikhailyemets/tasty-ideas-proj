@@ -1,10 +1,13 @@
 from django.contrib import messages
 from django import forms
+from django.db import models
+from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import DishSearchForm
+from .forms import DishSearchForm, CookCreateForm
 from .models import Category, Dish, Review
 
 
@@ -23,12 +26,17 @@ class DishListView(generic.ListView):
     context_object_name = 'dishes'
 
     def get_queryset(self):
-        name = self.request.GET.get("name")
-        if name:
-            return Dish.objects.prefetch_related().filter(
-                category_id=self.kwargs['pk'], name__icontains=name)
-        return Dish.objects.prefetch_related().filter(
-            category_id=self.kwargs['pk'])
+        query = self.request.GET.get("query")
+
+        queryset = Dish.objects.prefetch_related().filter(category_id=self.kwargs['pk'])
+
+        if query:
+            queryset = queryset.filter(
+                models.Q(name__icontains=query) |
+                models.Q(ingredients__name__icontains=query)
+            ).distinct()
+
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
@@ -70,3 +78,9 @@ class DishDetailView(generic.DetailView):
         else:
             messages.error(request, "Please log in before adding reviews.")
         return redirect('tasty_ideas:dish-detail', pk=self.object.pk)
+
+
+class SignUpView(generic.CreateView):
+    form_class = CookCreateForm
+    success_url = reverse_lazy('login')
+    template_name = 'registration/signup.html'

@@ -3,9 +3,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <div class="form-container">
-    <h1 class="text-center">Registration</h1>
-    <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+  <div class="form-container signup">
+    <h1 class="text-center">Sign up</h1>
+    <form method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form|crispy }}
       <div class="text-center">

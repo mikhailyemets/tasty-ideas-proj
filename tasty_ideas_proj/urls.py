@@ -19,12 +19,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from tasty_ideas.views import index
+from tasty_ideas.views import index, SignUpView
 
 urlpatterns = [
     path("", index, name="index"),
     path('admin/', admin.site.urls),
     path('tasty-ideas/', include("tasty_ideas.urls", namespace="tasty_ideas")),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/signup/", SignUpView.as_view(), name="signup"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

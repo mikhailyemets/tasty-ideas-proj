@@ -1,4 +1,7 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
+from tasty_ideas.models import Cook
 
 
 class MainPageSearchForm(forms.Form):
@@ -15,13 +18,19 @@ class MainPageSearchForm(forms.Form):
 
 
 class DishSearchForm(forms.Form):
-    name = forms.CharField(
+    query = forms.CharField(
         max_length=255,
         required=False,
         label="",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Search by name.."
+                "placeholder": "Search by name or ingredient.."
             }
         )
     )
+
+
+class CookCreateForm(UserCreationForm):
+    class Meta:
+        model = Cook
+        fields = ['username', 'email', 'password1', 'password2']

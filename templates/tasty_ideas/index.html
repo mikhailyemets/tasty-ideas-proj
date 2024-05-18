@@ -14,11 +14,14 @@
           {% if user.is_authenticated %}
           <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
+            <span class="user-name" style="margin-right: 10px;">Welcome, {{ user.username|capfirst }}</span>
             <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Log out</button>
           </form>
           {% else %}
-            <a href="{% url 'login' %}" class="login btn btn-outline-info my-2 my-sm-0 btn-lg">Sign in</a>
-{#            <a href="{% url 'registration' %}" class="login btn btn-outline-info my-2 my-sm-0 btn-lg">Sign up</a>#}
+            <div class="auth">
+              <a href="{% url 'login' %}" class="login btn btn-outline-info my-2 my-sm-0 btn-lg">Sign in</a>
+              <a href="{% url 'signup' %}" class="login btn btn-outline-info my-2 my-sm-0 btn-lg">Sign up</a>
+            </div>
           {% endif %}
       </div>
   </header>
