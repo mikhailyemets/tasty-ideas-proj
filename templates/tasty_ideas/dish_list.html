@@ -38,7 +38,7 @@
               <p style="width: 400px">{{ dish.recipe|truncatechars:250 }}</p>
               <a href="{% url 'tasty_ideas:dish-detail' dish.pk %}">Continue reading </a>
             </div>
-            <img src="{{ dish.image }}" alt="Thumbnail [200x250]" class="dish-image mb-2 card-img-right flex-auto d-none d-md-block align-self-center mr-5">
+            <img src="{{ dish.image|default_if_none:'https://api.ozero.market/pictures/395341/conversions/0b10352911607d6dbeac54af370b75590d032d90-large.jpg' }}" alt="Thumbnail [200x250]" class="dish-image mb-2 card-img-right flex-auto d-none d-md-block align-self-center mr-5">
           </div>
         </div>
         {% endfor %}
