@@ -8,18 +8,19 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
+from django.views.generic import TemplateView
 
 from .forms import DishSearchForm, CookCreateForm, DishForm, CookForm
 from .models import Category, Dish, Review
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    categories = Category.objects.all()
+class IndexView(generic.TemplateView):
+    template_name = 'tasty_ideas/index.html'
 
-    context = {
-        'categories': categories
-    }
-    return render(request, 'tasty_ideas/index.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 class DishListView(generic.ListView):
@@ -63,12 +64,13 @@ class DishDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        dish = self.object
         context['form'] = CommentaryForm()
-        context['reviews'] = self.object.reviews.all()
-        context['category_id'] = self.object.category.id
+        context['category_id'] = dish.category.id
         context['next'] = self.request.path
-        context["reviews"] = Review.objects.filter(dish=self.object)
         context["user"] = self.request.user
+        context["reviews"] = dish.reviews.all().select_related('left_by')
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -165,3 +167,5 @@ def user_profile(request):
         'form': form,
     }
     return render(request, 'tasty_ideas/user_profile.html', context)
+
+

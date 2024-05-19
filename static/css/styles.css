@@ -197,4 +197,7 @@ header{
 }
 .userprofile{
     width: 50%;
+    background-color: black;
+    color:white;
+    padding: 20px;
 }
