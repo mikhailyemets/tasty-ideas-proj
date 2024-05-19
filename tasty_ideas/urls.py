@@ -1,13 +1,13 @@
 from django.urls import path
-from .views import IndexView, DishListView, DishDetailView, DishCreateView, DishUpdateView, DishDeleteView, delete_review, user_profile
+from .views import index, DishListView, DishDetailView, DishCreateView, DishUpdateView, DishDeleteView, delete_review, user_profile
 
 
 
 
 
 urlpatterns = [
-    path("", IndexView.as_view(), name="index"),
-    path("tasty-ideas/", IndexView.as_view(), name="index"),
+    path("", index, name="index"),
+    path("tasty-ideas/", index, name="index"),
     path('categories/<int:pk>/', DishListView.as_view(), name='dish-list'),
     path('dishes/<int:pk>/', DishDetailView.as_view(), name='dish-detail'),
     path("categories/<int:pk>/dishes/create/", DishCreateView.as_view(), name="dish-create"),

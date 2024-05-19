@@ -19,10 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from tasty_ideas.views import IndexView, SignUpView
+from tasty_ideas.views import index, SignUpView
 
 urlpatterns = [
-    path("", IndexView.as_view, name="index"),
+    path("", index, name="index"),
     path('admin/', admin.site.urls),
     path('tasty-ideas/', include("tasty_ideas.urls", namespace="tasty_ideas")),
     path("accounts/", include("django.contrib.auth.urls")),

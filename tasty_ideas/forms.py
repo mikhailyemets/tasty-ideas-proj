@@ -47,6 +47,7 @@ class DishForm(forms.ModelForm):
         queryset=Ingredient.objects.all(),
         widget=forms.CheckboxSelectMultiple
     )
+
     class Meta:
         model = Dish
         fields = "__all__"

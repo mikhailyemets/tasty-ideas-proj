@@ -8,19 +8,18 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
-from django.views.generic import TemplateView
 
 from .forms import DishSearchForm, CookCreateForm, DishForm, CookForm
 from .models import Category, Dish, Review
 
 
-class IndexView(generic.TemplateView):
-    template_name = 'tasty_ideas/index.html'
+def index(request: HttpRequest) -> HttpResponse:
+    categories = Category.objects.all()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
+    context = {
+        'categories': categories
+    }
+    return render(request, 'tasty_ideas/index.html', context)
 
 
 class DishListView(generic.ListView):
@@ -167,5 +166,3 @@ def user_profile(request):
         'form': form,
     }
     return render(request, 'tasty_ideas/user_profile.html', context)
-
-
