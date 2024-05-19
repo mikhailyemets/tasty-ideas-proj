@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from .forms import DishSearchForm, CookCreateForm, DishForm
+from .forms import DishSearchForm, CookCreateForm, DishForm, CookForm
 from .models import Category, Dish, Review
 
 
@@ -147,3 +147,21 @@ def delete_review(request, pk):
     if request.user == review.left_by:
         review.delete()
     return redirect(reverse('tasty_ideas:dish-detail', kwargs={'pk': review.dish.pk}))
+
+
+@login_required
+def user_profile(request):
+    user = request.user
+    form = CookForm(instance=user)
+    if request.method == 'POST':
+        form = CookForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('tasty_ideas:index')
+    else:
+        form = CookForm(instance=user)
+    context = {
+        'user': user,
+        'form': form,
+    }
+    return render(request, 'tasty_ideas/user_profile.html', context)

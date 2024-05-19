@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, DishListView, DishDetailView, DishCreateView, DishUpdateView, DishDeleteView, delete_review
+from .views import index, DishListView, DishDetailView, DishCreateView, DishUpdateView, DishDeleteView, delete_review, user_profile
 
 
 
@@ -14,6 +14,8 @@ urlpatterns = [
     path('dishes/<int:pk>/update/', DishUpdateView.as_view(), name='dish-update'),
     path('dishes/<int:pk>/delete/', DishDeleteView.as_view(), name='dish-delete'),
     path('review/<int:pk>/delete/', delete_review, name='delete_review'),
+    path('profile/', user_profile, name='user_profile'),
 ]
+
 
 app_name = "tasty_ideas"

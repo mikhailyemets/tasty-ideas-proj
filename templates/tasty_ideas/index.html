@@ -14,8 +14,13 @@
           {% if user.is_authenticated %}
           <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <span class="user-name btn btn-outline-info my-2 my-sm-0" style="margin-right: 10px;">Welcome, {{ user.username|capfirst }}</span>
+            <a href="{% url 'tasty_ideas:user_profile' %}" class="user-name btn btn-outline-info my-2 my-sm-0" style="margin-right: 10px;">
+               Welcome, {{ user.username|capfirst }}
+            </a>
             <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Log out</button>
+            <a href="https://github.com/mikhailyemets">
+              <img src="{% static 'img/git.png' %}" alt="" style="width: 100px; height: 100px">
+            </a>
           </form>
           {% else %}
             <div class="auth">

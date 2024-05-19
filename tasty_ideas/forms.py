@@ -33,7 +33,13 @@ class DishSearchForm(forms.Form):
 class CookCreateForm(UserCreationForm):
     class Meta:
         model = Cook
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username','first_name', 'last_name', 'email', 'password1', 'password2']
+
+
+class CookForm(forms.ModelForm):
+    class Meta:
+        model = Cook
+        fields = ['username','first_name', 'last_name', 'email']
 
 
 class DishForm(forms.ModelForm):
