@@ -27,6 +27,7 @@ class DishListView(generic.ListView):
     template_name = 'tasty_ideas/dish_list.html'
     context_object_name = 'dishes'
     paginate_by = 2
+
     def get_queryset(self):
         query = self.request.GET.get("query")
 
@@ -46,7 +47,7 @@ class DishListView(generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["search_form"] = DishSearchForm()
+        context["search_form"] = DishSearchForm(self.request.GET or None)
         context["category_pk"] = self.kwargs['pk']
         return context
 
