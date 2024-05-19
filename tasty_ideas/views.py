@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django import forms
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
@@ -65,6 +66,8 @@ class DishDetailView(generic.DetailView):
         context['reviews'] = self.object.reviews.all()
         context['category_id'] = self.object.category.id
         context['next'] = self.request.path
+        context["reviews"] = Review.objects.filter(dish=self.object)
+        context["user"] = self.request.user
         return context
 
     def post(self, request, *args, **kwargs):
@@ -137,3 +140,9 @@ class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
         return context
 
 
+@login_required
+def delete_review(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+    if request.user == review.left_by:
+        review.delete()
+    return redirect(reverse('tasty_ideas:dish-detail', kwargs={'pk': review.dish.pk}))
