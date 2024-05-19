@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from tasty_ideas.models import Cook
+from tasty_ideas.models import Cook, Dish, Ingredient
 
 
 class MainPageSearchForm(forms.Form):
@@ -34,3 +34,14 @@ class CookCreateForm(UserCreationForm):
     class Meta:
         model = Cook
         fields = ['username', 'email', 'password1', 'password2']
+
+
+class DishForm(forms.ModelForm):
+    ingredients = forms.ModelMultipleChoiceField(
+        queryset=Ingredient.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    class Meta:
+        model = Dish
+        fields = "__all__"
+

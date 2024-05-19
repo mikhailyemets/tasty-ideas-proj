@@ -2,12 +2,13 @@ from django.contrib import messages
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
+from django.db.models import Count
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from .forms import DishSearchForm, CookCreateForm
+from .forms import DishSearchForm, CookCreateForm, DishForm
 from .models import Category, Dish, Review
 
 
@@ -28,7 +29,11 @@ class DishListView(generic.ListView):
     def get_queryset(self):
         query = self.request.GET.get("query")
 
-        queryset = Dish.objects.prefetch_related().filter(category_id=self.kwargs['pk'])
+        queryset = Dish.objects.filter(
+            category_id=self.kwargs['pk']
+        ).annotate(review_count=Count('reviews')).prefetch_related(
+            'ingredients'
+        )
 
         if query:
             queryset = queryset.filter(
@@ -89,7 +94,7 @@ class SignUpView(generic.CreateView):
 
 class DishCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dish
-    fields = "__all__"
+    form_class = DishForm
     template_name = "tasty_ideas/dish_list_form.html"
 
     def get_success_url(self):
@@ -105,7 +110,7 @@ class DishCreateView(LoginRequiredMixin, generic.CreateView):
 
 class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Dish
-    fields = "__all__"
+    form_class = DishForm
     template_name = "tasty_ideas/dish_list_form.html"
 
     def get_success_url(self):
@@ -130,3 +135,5 @@ class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
         context = super().get_context_data(**kwargs)
         context['category_pk'] = self.kwargs.get('pk', None)
         return context
+
+

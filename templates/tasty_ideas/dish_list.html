@@ -31,11 +31,14 @@
                   {% endfor %}
                 </ul>
               </div>
+              <hr>
+              <h4>Reviews count: {{ dish.review_count }}</h4>
+              <hr>
               <h4>Recipe:</h4>
               <p style="width: 400px">{{ dish.recipe|truncatechars:250 }}</p>
-              <a href="{% url 'tasty_ideas:dish-detail' dish.pk %}">Continue reading</a>
+              <a href="{% url 'tasty_ideas:dish-detail' dish.pk %}">Continue reading </a>
             </div>
-            <img src="{{ dish.image }}" alt="Thumbnail [200x250]" class="dish-image mb-2 card-img-right flex-auto d-none d-md-block">
+            <img src="{{ dish.image }}" alt="Thumbnail [200x250]" class="dish-image mb-2 card-img-right flex-auto d-none d-md-block align-self-center mr-5">
           </div>
         </div>
         {% endfor %}
