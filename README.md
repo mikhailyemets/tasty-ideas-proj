@@ -62,3 +62,5 @@ python manage.py runserver
 
 # Admin
 - Admin Interface: Django admin is used for managing the application data.
+
+![Website Interface](demo.png)
