@@ -22,16 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    "django-insecure-8fhj23)@ng=dq@-w4c*%1=$80!p@(t!*380f^4l-3-3+iun3kz"
-)
+# "django-insecure-8fhj23)@ng=dq@-w4c*%1=$80!p@(t!*380f^4l-3-3+iun3kz"
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 #?????????????????
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
+DEBUG = 'RENDER' not in os.environ
 
+# DATABASE_URL="postgresql://tasted_owner:L0pfvT8JBPiQ@ep-purple-smoke-a27lhpay.eu-central-1.aws.neon.tech/tasty?sslmode=require"
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
