@@ -9,7 +9,7 @@ https://tasty-ideas-proj.onrender.com
 # Demo 
 ![Website Interface](demo.png)
 
-# File include data.json so you can load data to database
+# File includes data.json so you can load data to database
 
 # Python3 must be already installed
 
