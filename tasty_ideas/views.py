@@ -141,7 +141,7 @@ class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 @login_required
-def delete_review(request, pk):
+def delete_review(request:HttpRequest, pk:int) -> HttpResponse:
     review = get_object_or_404(Review, pk=pk)
     if request.user == review.left_by:
         review.delete()
@@ -149,7 +149,7 @@ def delete_review(request, pk):
 
 
 @login_required
-def user_profile(request):
+def user_profile(request:HttpRequest) -> HttpResponse:
     user = request.user
     form = CookForm(instance=user)
     if request.method == "POST":
