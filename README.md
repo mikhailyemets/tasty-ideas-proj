@@ -4,10 +4,12 @@ An app that provides users with a vast collection of delicious recipes from arou
 
 # Check it out!
 
-link to render
+https://tasty-ideas-proj.onrender.com
  
 # Demo 
 ![Website Interface](demo.png)
+
+# File include data.json so you can load data to database
 
 # Python3 must be already installed
 

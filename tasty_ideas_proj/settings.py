@@ -143,6 +143,7 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# /Users/yemets/Documents/tasty_ideas_proj/tasty_ideas_proj/db.sqlite3
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
