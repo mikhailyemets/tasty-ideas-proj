@@ -36,7 +36,11 @@
                 </ul>
               </div>
               <hr>
-              <a href="{% url 'tasty_ideas:dish-detail' dish.pk %}#comments" class="review-link"><h4>Reviews: {{ dish.review_count }}</h4></a>
+              {% if dish.review_count > 0 %}
+                <a href="{% url 'tasty_ideas:dish-detail' dish.pk %}#comments" class="review-link"><h4>Reviews: {{ dish.review_count }}</h4></a>
+              {% else %}
+                <h4>Reviews: {{ dish.review_count }}</h4>
+              {% endif %}
               <hr>
               <h4>Recipe:</h4>
               <p style="width: 400px">{{ dish.recipe|truncatechars:250 }}</p>
