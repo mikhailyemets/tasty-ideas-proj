@@ -35,6 +35,10 @@ class Cook(AbstractUser):
         return f"{self.first_name}, {self.last_name}, {self.experience}"
 
 
+from django.core.validators import MinValueValidator
+from django.db import models
+
+
 class Dish(models.Model):
     SPICY_CHOICES = [
         ("easy", "Not spicy at all"),
@@ -48,8 +52,12 @@ class Dish(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    cooking_time = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(
+        max_digits=4, decimal_places=2, validators=[MinValueValidator(0)]
+    )
+    cooking_time = models.DecimalField(
+        max_digits=4, decimal_places=2, validators=[MinValueValidator(0)]
+    )
     spicy = models.CharField(max_length=50, choices=SPICY_CHOICES)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="dishes"
