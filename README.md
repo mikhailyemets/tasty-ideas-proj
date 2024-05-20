@@ -5,6 +5,9 @@ An app that provides users with a vast collection of delicious recipes from arou
 # Check it out!
 
 link to render
+ 
+# Demo 
+![Website Interface](demo.png)
 
 # Python3 must be already installed
 
@@ -63,4 +66,4 @@ python manage.py runserver
 # Admin
 - Admin Interface: Django admin is used for managing the application data.
 
-![Website Interface](demo.png)
+
