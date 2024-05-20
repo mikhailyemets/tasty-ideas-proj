@@ -32,7 +32,7 @@
                 </ul>
               </div>
               <hr>
-              <h4>Reviews count: {{ dish.review_count }}</h4>
+              <a href="{% url 'tasty_ideas:dish-detail' dish.pk %}#comments" class="review-link"><h4>Reviews: {{ dish.review_count }}</h4></a>
               <hr>
               <h4>Recipe:</h4>
               <p style="width: 400px">{{ dish.recipe|truncatechars:250 }}</p>

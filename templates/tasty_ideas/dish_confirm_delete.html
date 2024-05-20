@@ -2,14 +2,14 @@
 {% block content %}
 	<h1>Delete recipe?</h1>
   <br>
-  <p class="alert alert-danger" role="alert">Are you sure you want to delete 
+  <p class="alert alert-danger" role="alert">Are you sure you want to delete
     the recipe: {{ recipe }} ?</p>
   <p class="alert alert-danger" role="alert">All bounded information will be also deleted!</p>
   <form action="" method="post">
     {% csrf_token %}
     <br>
     <input type="submit" value="Yes, delete" class="btn btn-danger">
-    <a href="{% url "tasty_ideas:dish-list" pk=category_pk%}" class="btn btn-primary" 
+    <a href="{% url "tasty_ideas:dish-list" pk=category_pk%}" class="btn btn-primary"
        style="margin-left:10px">Cancel</a>
   </form>
 {% endblock %}

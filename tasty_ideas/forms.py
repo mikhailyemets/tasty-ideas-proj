@@ -9,11 +9,7 @@ class MainPageSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Search by name.."
-            }
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search by name.."}),
     )
 
 
@@ -22,33 +18,34 @@ class DishSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Search by name or ingredient.."
-            }
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search by name or ingredient.."}),
     )
 
 
 class CookCreateForm(UserCreationForm):
     class Meta:
         model = Cook
-        fields = ['username','first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "password1",
+            "password2",
+        ]
 
 
 class CookForm(forms.ModelForm):
     class Meta:
         model = Cook
-        fields = ['username','first_name', 'last_name', 'email']
+        fields = ["username", "first_name", "last_name", "email"]
 
 
 class DishForm(forms.ModelForm):
     ingredients = forms.ModelMultipleChoiceField(
-        queryset=Ingredient.objects.all(),
-        widget=forms.CheckboxSelectMultiple
+        queryset=Ingredient.objects.all(), widget=forms.CheckboxSelectMultiple
     )
 
     class Meta:
         model = Dish
         fields = "__all__"
-

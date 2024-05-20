@@ -1,5 +1,3 @@
-from django.utils import timezone
-
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -54,15 +52,10 @@ class Dish(models.Model):
     cooking_time = models.DecimalField(max_digits=8, decimal_places=2)
     spicy = models.CharField(max_length=50, choices=SPICY_CHOICES)
     category = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE,
-        related_name="dishes"
+        Category, on_delete=models.CASCADE, related_name="dishes"
     )
     difficulty = models.CharField(max_length=50, choices=DIFFICULTY_CHOICES)
-    ingredients = models.ManyToManyField(
-        "Ingredient",
-        related_name="dishes"
-    )
+    ingredients = models.ManyToManyField("Ingredient", related_name="dishes")
     recipe = models.TextField()
     image = models.URLField(
         null=True,
@@ -88,15 +81,9 @@ class Ingredient(models.Model):
 
 
 class Review(models.Model):
-    dish = models.ForeignKey(
-        Dish,
-        on_delete=models.CASCADE,
-        related_name="reviews"
-    )
+    dish = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name="reviews")
     left_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="reviews"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reviews"
     )
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

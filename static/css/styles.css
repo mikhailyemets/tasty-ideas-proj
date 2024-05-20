@@ -201,3 +201,17 @@ header{
     color:white;
     padding: 20px;
 }
+.git-block{
+    margin-top: 15px;
+    width: 300px;
+    border-radius: 20px;
+    float: right;
+}
+.git-text{
+    color:white;
+    padding: 15px 0 0 30px;
+    letter-spacing: 1px;
+}
+.git-link:hover{
+    text-decoration: none;
+}

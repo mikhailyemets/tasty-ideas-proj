@@ -42,7 +42,7 @@
         {% endif %}
         {% if reviews %}
             {% for review in reviews %}
-                <div class="comment">
+                <div class="comment" id="comments">
                     <p><strong>By: {{ review.left_by.username }}</strong></p>
                     <p>{{ review.content }}</p>
                     <p>Commented at: {{ review.created_at }}</p>

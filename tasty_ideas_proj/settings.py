@@ -153,7 +153,5 @@ LOGIN_REDIRECT_URL = "/"
 
 # INSTALL DEBUG
 INTERNAL_IPS = [
-    # ...
     "127.0.0.1",
-    # ...
 ]
