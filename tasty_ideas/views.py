@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
 from django.db.models import Count
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
@@ -67,11 +67,19 @@ class DishDetailView(generic.DetailView):
         context["next"] = self.request.path
         context["user"] = self.request.user
         context["reviews"] = dish.reviews.all().select_related("left_by")
-
         return context
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not self.object:
+            return HttpResponseNotFound("No results for this search.")
+        return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        if not self.object:
+            return HttpResponseNotFound("No results for this search.")
+
         if request.user.is_authenticated:
             form = CommentaryForm(request.POST)
             if form.is_valid():
@@ -141,7 +149,7 @@ class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 @login_required
-def delete_review(request:HttpRequest, pk:int) -> HttpResponse:
+def delete_review(request: HttpRequest, pk: int) -> HttpResponse:
     review = get_object_or_404(Review, pk=pk)
     if request.user == review.left_by:
         review.delete()
@@ -149,7 +157,7 @@ def delete_review(request:HttpRequest, pk:int) -> HttpResponse:
 
 
 @login_required
-def user_profile(request:HttpRequest) -> HttpResponse:
+def user_profile(request: HttpRequest) -> HttpResponse:
     user = request.user
     form = CookForm(instance=user)
     if request.method == "POST":

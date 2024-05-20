@@ -10,7 +10,11 @@
     <a href="{% url 'tasty_ideas:dish-create' pk=category_pk%}" class="btn btn-primary mr-2 bg-dark" style=" margin-top: -15px; border:1px solid black;"> Add your own recipe</a>
     <a href="{% url 'tasty_ideas:index' %}" class="btn btn-primary bg-dark" style=" margin-top: -15px; border:1px solid black;"> Back to categories</a>
   </form>
-
+    {% if not dishes %}
+      <div class="alert alert-info" role="alert">
+          No recipes found.
+      </div>
+    {% endif %}
     <div class="row mb-2 cards-block">
       {% for dish in dishes %}
         <div class="col-md-12">

@@ -68,8 +68,7 @@ class Dish(models.Model):
     image = models.URLField(
         null=True,
         blank=True,
-        verbose_name="Image URL",
-        help_text="Image URL (e.g., https://example.com/image.jpg)"
+        help_text="Paste image URL here (e.g., https://example.com/image.jpg)"
     )
 
     class Meta:
