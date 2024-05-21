@@ -22,15 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# "django-insecure-8fhj23)@ng=dq@-w4c*%1=$80!p@(t!*380f^4l-3-3+iun3kz"
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-8fhj23)@ng=dq@-w4c*%1=$80!p@(t!*380f^4l-3-3+iun3kz")
+
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#?????????????????
 
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != False
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-# DATABASE_URL="postgresql://tasted_owner:L0pfvT8JBPiQ@ep-purple-smoke-a27lhpay.eu-central-1.aws.neon.tech/tasty?sslmode=require"
+
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
@@ -99,8 +98,10 @@ DATABASES = {
 }
 
 # Connecting PostreSQL
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
+
 # DATABASE_URL="postgresql://tasted_owner:L0pfvT8JBPiQ@ep-purple-smoke-a27lhpay.eu-central-1.aws.neon.tech/tasty?sslmode=require"
 
 
@@ -147,6 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+
 STATIC_ROOT = "staticfiles/"
 STATICFILES_DIRS = [BASE_DIR / 'static',]
 STATIC_URL = "static/"
