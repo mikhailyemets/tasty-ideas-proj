@@ -11,6 +11,11 @@ https://tasty-ideas-proj.onrender.com
 
 # File includes data.json so you can load data to database
 
+# User data for login
+
+    login: user
+    password: user12345
+
 # Python3 must be already installed
 
 ``` shell
