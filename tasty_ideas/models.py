@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 class Category(models.Model):
@@ -33,10 +34,6 @@ class Cook(AbstractUser):
 
     def __str__(self):
         return f"{self.first_name}, {self.last_name}, {self.experience}"
-
-
-from django.core.validators import MinValueValidator
-from django.db import models
 
 
 class Dish(models.Model):

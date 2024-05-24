@@ -11,6 +11,14 @@ https://tasty-ideas-proj.onrender.com
 
 # File includes data.json so you can load data to database
 
+# Set up environment variables
+    - Create a `.env` file in the root directory of the project.
+    - Add the following variables to the `.env` file:
+        ```env
+        SECRET_KEY=your_secret_key
+        DEBUG=True  # Set to False in production
+        ```
+
 # User data for login
 
     login: user
@@ -21,8 +29,10 @@ https://tasty-ideas-proj.onrender.com
 ``` shell
 git clone https://github.com/mikhailyemets/tasty-ideas-proj.git
 cd tasty_ideas_proj
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv venv (mac) 
+python -m venv venv (win)
+source venv/bin/activate (mac)
+venv\Scripts\activate(win)
 pip install -r requirements.txt
 python manage.py runserver
 
