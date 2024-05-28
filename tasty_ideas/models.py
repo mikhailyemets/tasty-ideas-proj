@@ -62,6 +62,10 @@ class Dish(models.Model):
     difficulty = models.CharField(max_length=50, choices=DIFFICULTY_CHOICES)
     ingredients = models.ManyToManyField("Ingredient", related_name="dishes")
     recipe = models.TextField()
+    added_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     image = models.URLField(
         null=True,
         blank=True,

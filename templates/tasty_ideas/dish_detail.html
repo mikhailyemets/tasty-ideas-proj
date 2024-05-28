@@ -5,8 +5,11 @@
   <div class="container dish-detail" >
       <h2 class="text-center mb-4">{{ dish.name|capitalize_each_word }}</h2>
         <div class="butns mb-4">
+          <p>{{ dish.cook }}</p>
           <a href="{% url 'tasty_ideas:dish-update' pk=dish.id%}" class="btn btn-style mr-2">Edit recipe</a>
-          <a href="{% url 'tasty_ideas:dish-delete' pk=dish.id %}" class="btn btn-style">Delete recipe</a>
+          {% if dish.added_by == user %}
+              <a href="{% url 'tasty_ideas:dish-delete' pk=dish.id %}" class="btn btn-style">Delete recipe</a>
+          {% endif %}
           <a href="{% url 'tasty_ideas:dish-list' pk=category_id %}" class="btn dishes-back ml-10">Back to recipes list</a>
         </div>
       <div class="row justify-content-center">
