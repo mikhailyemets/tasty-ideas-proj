@@ -67,6 +67,7 @@ class DishDetailView(generic.DetailView):
         context["next"] = self.request.path
         context["user"] = self.request.user
         context["reviews"] = dish.reviews.all().select_related("left_by")
+
         return context
 
     def get(self, request, *args, **kwargs):
