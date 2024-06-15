@@ -1,0 +1,11 @@
+{% extends "_base.html" %}
+{% block content %}
+  <div class="form-container" style="width: 50%">
+    <h1 class="text-center">Logged out!</h1>
+    <p class="text-center">You have been successfully logged out.</p>
+    <div class="text-center">
+      <a href="{% url 'login'%}" class="btn btn-primary mr-5">Click here to login again</a>
+      <a href="{% url 'tasty_ideas:index'%}" class="btn btn-primary">Back to home page</a>
+    </div>
+  </div>
+{% endblock %}

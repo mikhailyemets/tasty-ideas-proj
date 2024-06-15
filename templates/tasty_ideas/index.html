@@ -1,0 +1,58 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block nav %}
+  {% include "includes/nav_top.html" %}
+{% endblock %}
+{% block content %}
+<div class="content-background">
+  <header class="header-dark bg-dark">
+      <div class="container justify-content-between align-items-center d-flex">
+          <div>
+              <h1 class="display-4">Welcome to Tasty Ideas</h1>
+              <p class="lead ml-3 mt-3">Discover delicious recipes for your perfect evening</p>
+          </div>
+          {% if user.is_authenticated %}
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <a href="{% url 'tasty_ideas:user_profile' %}" class="user-name btn btn-outline-info my-2 my-sm-0" style="margin-right: 10px;">
+               Welcome  @{{ user.username|capfirst }}
+            </a>
+            <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Log out</button>
+          </form>
+          {% else %}
+            <div class="auth">
+              <a href="{% url 'login' %}" class="login btn btn-outline-info my-2 my-sm-0 btn-lg">Sign in</a>
+              <a href="{% url 'signup' %}" class="login btn btn-outline-info my-2 my-sm-0 btn-lg">Sign up</a>
+            </div>
+          {% endif %}
+      </div>
+  </header>
+  <main class="container">
+        <section class="index-content">
+            <h2 class="text-center mb-4 bg-dark" style="color:white; width: 30%; padding:10px; margin: 0 auto; border-radius: 10px" >Categories</h2>
+            <div class="row justify-content-center">
+                {% for category in categories %}
+                <div class="category col mb-4">
+                    <a href="{% url 'tasty_ideas:dish-list' category.pk %}">
+                        <div class="category-image">
+                            <img src="{{ category.image }}" alt="{{ category.dish_type }}" class="img-fluid mb-2">
+                        </div>
+                    </a>
+                    <h3 class="text-center bg-dark" style="color:white; padding: 10px; text-align: center; border-radius: 15px; margin-top: 10px">{{ category.dish_type }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+  <footer class="footer">
+    <p class="git-block bg-dark">
+      <a href="https://github.com/mikhailyemets" class="git-link">
+        <span class="git-text">
+          Link to my git-hub profile
+        </span>
+        <img src="{% static 'img/git.png' %}" alt="" style="width: 50px; height: 50px">
+      </a>
+    </p>
+  </footer>
+</div>
+{% endblock %}

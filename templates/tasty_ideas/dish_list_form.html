@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="dish-add">
+    <h1>{% if is_update_view %}Edit{% else %}Create{% endif %} your own recipe</h1>
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="hidden" name="category_pk" value="{{ category.pk }}">
+      <input type="submit" value="Save" class="btn btn-style">
+      {% if is_update_view %}
+        <a href="{% url 'tasty_ideas:dish-detail' pk=object.pk %}" class="btn btn-style">Cancel</a>
+      {% else %}
+        <a href="{% url 'tasty_ideas:dish-list' pk=category_pk %}" class="btn btn-style">Cancel</a>
+      {% endif %}
+    </form>
+  </div>
+{% endblock %}

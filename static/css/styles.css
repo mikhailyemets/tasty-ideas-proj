@@ -1,0 +1,217 @@
+body{
+    font-family: 'Ubuntu', sans-serif;
+    background: url("../img/bg3.jpeg") no-repeat;
+    background-size: cover;
+}
+
+.index-content{
+    color:white;
+}
+header{
+    margin-top: 30px;
+    padding: 30px;
+    color:white;
+    border-radius: 40px;
+}
+.img-fluid {
+    width: 160px;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.dish-image{
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: 35px;
+}
+.index-content{
+    margin-top: 50px;
+}
+.img-fluid img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center !important;
+}
+
+.category-image{
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.category-image:hover {
+    transform: scale(1.1);
+}
+
+.dish{
+    background-color: white;
+    margin-right: 10px;
+}
+.dish-title{
+    color:white;
+    font-size: 45px;
+    width: 500px;
+    padding: 10px;
+    border-radius: 20px;
+}
+.form-container {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.card{
+    border-radius: 35px;
+}
+.back{
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    margin-bottom: 20px;
+}
+.back:hover{
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+}
+.cards-block{
+    margin-top: 20px;
+}
+.dish-detail{
+    background-color: black;
+    color: white;
+    padding: 40px;
+    border-radius: 50px;
+}
+.mb-4 h4{
+    letter-spacing: 1.5px;
+}
+.recipe_cont{
+    letter-spacing: 1.5px;
+}
+.comment{
+    border: 2px solid white;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border-radius: 10px
+}
+
+.btn-style{
+    border: 1px solid white;
+    color: white;
+    transition: transform 0.3s ease;
+    background-color: black !important;
+}
+.btn-style:hover{
+    transform: scale(1.1);
+    color: black;
+    background-color: white !important;
+    border: 1px solid white;
+}
+.dishes-back {
+    border: 1px solid white;
+    color: white;
+    transition: transform 0.3s ease;
+    float: right;
+    margin-left: 10px;
+}
+
+.dishes-back:hover {
+    transform: scale(1.1);
+    color: black;
+    background-color: white;
+}
+.add-comment textarea {
+        width: 100%;
+        height: 150px;
+        resize: none;
+}
+.signup{
+    width: 50%;
+}
+.auth{
+    float: right;
+}
+.login{
+    margin-right: 10px;
+}
+.dish-add{
+    margin: 0 auto;
+    width: 60%;
+    background-color: black;
+    color: white;
+    padding: 20px;
+}
+.dish-add input{
+    background-color: lightslategrey;
+    margin-right: 10px;
+}
+.add-recipe{
+    background-color: white;
+    color: black;
+    padding: 8px;
+    border-radius: 10px;
+    border:1px solid black;
+    margin-top: -15px;
+    margin-left:50px;
+    font-size: 15px;
+}
+.add-recipe:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+.back-cato{
+    background-color: white;
+    color: black;
+    padding: 8px;
+    border-radius: 10px;
+    border:1px solid black;
+    margin-top: -13px;
+    margin-left:50px;
+    font-size: 16px;
+}
+.back-cato:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+.pagination{
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.userprofile{
+    width: 50%;
+    background-color: black;
+    color:white;
+    padding: 20px;
+}
+.git-block{
+    margin-top: 15px;
+    width: 300px;
+    border-radius: 20px;
+    float: right;
+}
+.git-text{
+    color:white;
+    padding: 15px 0 0 30px;
+    letter-spacing: 1px;
+}
+.git-link:hover{
+    text-decoration: none;
+}

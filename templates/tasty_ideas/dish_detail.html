@@ -1,0 +1,64 @@
+{% extends '_base.html' %}
+{% load query_transform %}
+
+{% block content %}
+  <div class="container dish-detail" >
+      <h2 class="text-center mb-4">{{ dish.name|capitalize_each_word }}</h2>
+        <div class="butns mb-4">
+          <p>{{ dish.cook }}</p>
+          <a href="{% url 'tasty_ideas:dish-update' pk=dish.id%}" class="btn btn-style mr-2">Edit recipe</a>
+          {% if dish.added_by == user %}
+              <a href="{% url 'tasty_ideas:dish-delete' pk=dish.id %}" class="btn btn-style">Delete recipe</a>
+          {% endif %}
+          <a href="{% url 'tasty_ideas:dish-list' pk=category_id %}" class="btn dishes-back ml-10">Back to recipes list</a>
+        </div>
+      <div class="row justify-content-center">
+          <div class="col mb-4">
+              <h3>Cost of making : {{ dish.price }} USD</h3>
+              <p>Cooking Time: {{ dish.cooking_time }} minutes</p>
+              <p>Difficulty: {{ dish.difficulty }}</p>
+              <h4>Ingredients:</h4>
+              <ul>
+                  {% for ingredient in dish.ingredients.all %}
+                  <li>{{ ingredient.name }}</li>
+                  {% endfor %}
+              </ul>
+              <h4>Recipe:</h4>
+              <p class="recipe_cont">{{ dish.recipe }}</p>
+          </div>
+      </div>
+      <div class="comments">
+        <h2 style="color: black; font-size: 15px; letter-spacing: 1px">Reviews</h2>
+        {% if user.is_authenticated %}
+          <div class="add-comment">
+            <h2 style="color: white; font-size: 15px; letter-spacing: 1px; margin-top: 40px">Add a New Comment</h2>
+            <form method="post">
+              {% csrf_token %}
+              {{ form.content }}
+              <br>
+              <button type="submit" class="btn btn-primary btn-style">Add</button>
+            </form>
+          </div>
+        {% else %}
+          <p>Please <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-style">log in</a> to add a comment.</p>
+        {% endif %}
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="comment" id="comments">
+                    <p><strong>By: {{ review.left_by.username }}</strong></p>
+                    <p>{{ review.content }}</p>
+                    <p>Commented at: {{ review.created_at }}</p>
+                    {% if review.left_by == user %}
+                        <form action="{% url 'tasty_ideas:delete_review' review.pk %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No comments yet.</p>
+        {% endif %}
+    </div>
+  </div>
+{% endblock %}

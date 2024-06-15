@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8fhj23)@ng=dq@-w4c*%1=$80!p@(t!*380f^4l-3-3+iun3kz'
+
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+DEBUG = config("DEBUG", default=False, cast=bool)
 
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'tasty-ideas-proj.onrender.com'
+]
 
 # Application definition
 
@@ -37,10 +45,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tasty_ideas',
+    'crispy_forms',
+    'crispy_bootstrap5',
+
+    # install debug
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,6 +97,13 @@ DATABASES = {
     }
 }
 
+# Connecting PostreSQL
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES["default"].update(db_from_env)
+
+# DATABASE_URL="postgresql://tasted_owner:L0pfvT8JBPiQ@ep-purple-smoke-a27lhpay.eu-central-1.aws.neon.tech/tasty?sslmode=require"
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -113,12 +136,41 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# /Users/yemets/Documents/tasty_ideas_proj/tasty_ideas_proj/db.sqlite3
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+STATIC_ROOT = "staticfiles/"
+STATICFILES_DIRS = [BASE_DIR / 'static',]
+STATIC_URL = "static/"
+
+
+# Define the directory for user-uploaded media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+# CREATING VAR FOR ABSTRACT USER MODEL
+AUTH_USER_MODEL = "tasty_ideas.Cook"
+
+# CONNECT CRISPY
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+LOGIN_REDIRECT_URL = "/"
+
+
+# INSTALL DEBUG
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

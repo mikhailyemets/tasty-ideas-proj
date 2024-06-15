@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="form-container">
+    <h1 class="text-center">Login</h1>
+    {% if form.errors %}
+      <p class="text-center" style="color:red">Invalid credentials</p>
+    {% endif %}
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.username|as_crispy_field }}
+      </div>
+      <div class="form-group">
+        {{ form.password|as_crispy_field }}
+      </div>
+      <input type="hidden" name="next" value="{{ next }}">
+      <div class="text-center">
+        <input type="submit" value="Submit" class="btn btn-primary">
+        <a href="{% url 'tasty_ideas:index' %}" class="btn btn-primary">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
